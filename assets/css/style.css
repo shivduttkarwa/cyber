@@ -426,7 +426,7 @@ p {
 .brand img {
   width: auto;
   height: 3rem;
-  filter: brightness(1.8) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  filter: brightness(3) contrast(0.85) drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
 }
 
 .brand__mark {
@@ -979,22 +979,42 @@ p {
 
 .project-card__visit {
   position: absolute;
-  top: var(--space-1);
-  right: var(--space-1);
+  top: var(--space-075);
+  right: var(--space-075);
   z-index: var(--layer-content);
   display: grid;
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   place-items: center;
   color: var(--color-ink);
   background: var(--color-neon);
   border-radius: var(--radius-pill);
-  transform: scale(0.8) rotate(-10deg);
+  box-shadow: 0 0 1.25rem rgba(199, 255, 55, 0.16);
   transition: transform var(--transition-base);
 }
 
-.project-card:hover .project-card__visit {
-  transform: scale(1) rotate(0);
+.project-card__visit svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card__visit {
+    top: var(--space-1);
+    right: var(--space-1);
+    width: 3rem;
+    height: 3rem;
+    transform: scale(0.8) rotate(-10deg);
+  }
+
+  .project-card:hover .project-card__visit {
+    transform: scale(1) rotate(0);
+  }
 }
 
 .project-card__body {

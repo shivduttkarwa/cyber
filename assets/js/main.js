@@ -32,15 +32,31 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const heroTimeline = gsap.timeline({
-    defaults: { duration: 0.9, ease: "power3.out" },
-    onStart: () => document.documentElement.classList.add("motion-ready")
-  });
+  const homeHero = document.querySelector(".hero");
+  const servicePageHero = document.querySelector(".service-page-hero");
 
-  heroTimeline
-    .from(".hero__media", { autoAlpha: 0, scale: 1.08, duration: 1.35 })
-    .from(".hero__title", { autoAlpha: 0, yPercent: 14 }, "-=0.9")
-    .from(".hero__footer, .hero__scroll", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
+  if (homeHero) {
+    const heroTimeline = gsap.timeline({
+      defaults: { duration: 0.9, ease: "power3.out" },
+      onStart: () => document.documentElement.classList.add("motion-ready")
+    });
+
+    heroTimeline
+      .from(".hero__media", { autoAlpha: 0, scale: 1.08, duration: 1.35 })
+      .from(".hero__title", { autoAlpha: 0, yPercent: 14 }, "-=0.9")
+      .from(".hero__footer, .hero__scroll", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
+  } else if (servicePageHero) {
+    const serviceHeroTimeline = gsap.timeline({
+      defaults: { duration: 0.9, ease: "power3.out" },
+      onStart: () => document.documentElement.classList.add("motion-ready")
+    });
+
+    serviceHeroTimeline
+      .from(".service-page-hero h1", { yPercent: 10 })
+      .from(".service-page-hero__bottom", { yPercent: 25 }, "-=0.6");
+  } else {
+    document.documentElement.classList.add("motion-ready");
+  }
 
   gsap.utils.toArray(".section-heading, .process__intro, .about__top").forEach((heading) => {
     gsap.from(heading, {
@@ -63,18 +79,24 @@
     [".why-panel", ".why-panel__heading, .why-panel__list li"]
   ];
 
-  gsap.from(".service-card", {
-    scrollTrigger: {
-      trigger: ".service-grid",
-      start: "top 82%",
-      once: true
-    },
-    autoAlpha: 0,
-    duration: 0.72,
-    ease: "power3.out"
-  });
+  if (document.querySelector(".service-grid")) {
+    gsap.from(".service-card", {
+      scrollTrigger: {
+        trigger: ".service-grid",
+        start: "top 82%",
+        once: true
+      },
+      autoAlpha: 0,
+      duration: 0.72,
+      ease: "power3.out"
+    });
+  }
 
   revealGroups.forEach(([trigger, targets]) => {
+    if (!document.querySelector(trigger)) {
+      return;
+    }
+
     gsap.from(targets, {
       scrollTrigger: {
         trigger,
@@ -89,16 +111,63 @@
     });
   });
 
-  gsap.from(".contact-card", {
-    scrollTrigger: {
-      trigger: ".contact-card",
-      start: "top 84%",
-      once: true
-    },
-    autoAlpha: 0,
-    yPercent: 8,
-    scale: 0.985,
-    duration: 0.9,
-    ease: "power3.out"
+  if (document.querySelector(".service-index")) {
+    gsap.from(".service-index__heading > *, .service-index__nav a", {
+      scrollTrigger: {
+        trigger: ".service-index",
+        start: "top 82%",
+        once: true
+      },
+      yPercent: 16,
+      duration: 0.72,
+      stagger: 0.08,
+      ease: "power3.out"
+    });
+  }
+
+  gsap.utils.toArray(".service-chapter").forEach((chapter) => {
+    gsap.from(
+      chapter.querySelectorAll(".service-chapter__label, .service-chapter h2, .service-chapter__body"),
+      {
+        scrollTrigger: {
+          trigger: chapter,
+          start: "top 78%",
+          once: true
+        },
+        yPercent: 10,
+        duration: 0.82,
+        stagger: 0.1,
+        ease: "power3.out"
+      }
+    );
   });
+
+  if (document.querySelector(".service-bridge__inner")) {
+    gsap.from(".service-bridge__inner > *", {
+      scrollTrigger: {
+        trigger: ".service-bridge",
+        start: "top 80%",
+        once: true
+      },
+      yPercent: 15,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power3.out"
+    });
+  }
+
+  if (document.querySelector(".contact-card")) {
+    gsap.from(".contact-card", {
+      scrollTrigger: {
+        trigger: ".contact-card",
+        start: "top 84%",
+        once: true
+      },
+      autoAlpha: 0,
+      yPercent: 8,
+      scale: 0.985,
+      duration: 0.9,
+      ease: "power3.out"
+    });
+  }
 })();

@@ -17,13 +17,42 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
-  document.querySelectorAll("#primaryNavigation .nav-link").forEach((link) => {
+  document.querySelectorAll("#primaryNavigation a").forEach((link) => {
     link.addEventListener("click", () => {
       if (window.bootstrap && navigation?.classList.contains("show")) {
         bootstrap.Collapse.getOrCreateInstance(navigation).hide();
       }
     });
   });
+
+  if (navigation) {
+    navigation.addEventListener("show.bs.collapse", () => {
+      document.documentElement.classList.add("menu-open");
+      navigation.classList.remove("is-closing");
+      requestAnimationFrame(() => navigation.classList.add("is-opening"));
+    });
+
+    navigation.addEventListener("shown.bs.collapse", () => {
+      navigation.classList.remove("is-opening");
+    });
+
+    navigation.addEventListener("hide.bs.collapse", () => {
+      navigation.classList.remove("is-opening");
+      navigation.classList.add("is-closing");
+    });
+
+    navigation.addEventListener("hidden.bs.collapse", () => {
+      navigation.classList.remove("is-closing");
+      document.documentElement.classList.remove("menu-open");
+    });
+
+    window.matchMedia("(min-width: 992px)").addEventListener("change", (event) => {
+      if (event.matches) {
+        navigation.classList.remove("is-opening", "is-closing");
+        document.documentElement.classList.remove("menu-open");
+      }
+    });
+  }
 
   if (reduceMotion || !window.gsap || !window.ScrollTrigger) {
     document.documentElement.classList.add("motion-ready");

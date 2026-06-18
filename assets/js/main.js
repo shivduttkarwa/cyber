@@ -58,11 +58,21 @@
 
   const revealGroups = [
     [".about", ".about__statement h2, .about__intro, .about__principle"],
-    [".service-grid", ".service-card"],
     [".project-grid", ".project-card"],
     [".process-list", ".process-step"],
     [".why-panel", ".why-panel__heading, .why-panel__list li"]
   ];
+
+  gsap.from(".service-card", {
+    scrollTrigger: {
+      trigger: ".service-grid",
+      start: "top 82%",
+      once: true
+    },
+    autoAlpha: 0,
+    duration: 0.72,
+    ease: "power3.out"
+  });
 
   revealGroups.forEach(([trigger, targets]) => {
     gsap.from(targets, {

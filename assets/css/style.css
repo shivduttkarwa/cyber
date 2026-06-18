@@ -51,7 +51,7 @@
   --space-5: 5rem;
   --space-6: 6rem;
   --space-8: 8rem;
-  --section-space: clamp(6rem, 12vw, 11rem);
+  --section-space: clamp(4.5rem, 8vw, 8rem);
   --page-gutter: clamp(1rem, 4vw, 4.5rem);
 
   /* Sizing */
@@ -1244,13 +1244,41 @@ p {
 
 .contact-card::before {
   position: absolute;
-  top: 0;
-  left: 10%;
-  width: 28%;
-  height: var(--line-bold);
-  background: linear-gradient(90deg, transparent, var(--color-neon), transparent);
-  box-shadow: 0 0 1.5rem var(--color-neon-glow);
+  inset: 0;
+  z-index: var(--layer-content);
+  padding: var(--line-bold);
+  background: conic-gradient(
+    from var(--contact-border-angle),
+    transparent 0deg 300deg,
+    rgba(199, 255, 55, 0.2) 320deg,
+    var(--color-neon) 342deg,
+    transparent 360deg
+  );
+  border-radius: inherit;
   content: "";
+  filter: drop-shadow(0 0 0.65rem var(--color-neon-glow));
+  -webkit-mask:
+    linear-gradient(var(--color-black) 0 0) content-box,
+    linear-gradient(var(--color-black) 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(var(--color-black) 0 0) content-box,
+    linear-gradient(var(--color-black) 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: contact-border-run 4.5s linear infinite;
+}
+
+@property --contact-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes contact-border-run {
+  to {
+    --contact-border-angle: 360deg;
+  }
 }
 
 .contact-card__grid {

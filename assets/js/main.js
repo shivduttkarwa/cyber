@@ -40,7 +40,7 @@
   heroTimeline
     .from(".hero__media", { autoAlpha: 0, scale: 1.08, duration: 1.35 })
     .from(".hero__title", { autoAlpha: 0, yPercent: 14 }, "-=0.9")
-    .from(".hero__footer", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
+    .from(".hero__footer, .hero__scroll", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
 
   gsap.utils.toArray(".section-heading, .process__intro").forEach((heading) => {
     gsap.from(heading, {

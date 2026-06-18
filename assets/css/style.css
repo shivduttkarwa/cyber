@@ -753,12 +753,13 @@ html.menu-open .navbar-toggler {
   color: var(--color-text);
   font-size: var(--font-display-size);
   font-weight: 600;
-  line-height: 0.84;
+  line-height: 0.96;
   letter-spacing: var(--tracking-tight);
 }
 
 .hero__title span {
   display: block;
+  margin-top: 0.08em;
   color: var(--color-neon);
 }
 
@@ -1773,6 +1774,11 @@ html.menu-open .navbar-toggler {
 
   .hero__title {
     font-size: clamp(4.4rem, 8.096vw, 8.36rem);
+    line-height: 0.84;
+  }
+
+  .hero__title span {
+    margin-top: 0;
   }
 
   .hero__copy {

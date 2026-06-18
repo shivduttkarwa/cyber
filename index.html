@@ -38,11 +38,9 @@
           <button
             class="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#primaryNavigation"
             aria-controls="primaryNavigation"
             aria-expanded="false"
-            aria-label="Toggle navigation"
+            aria-label="Open navigation"
           >
             <span class="navbar-toggler-icon" aria-hidden="true">
               <span></span>
@@ -50,7 +48,7 @@
             </span>
           </button>
 
-          <div class="collapse navbar-collapse" id="primaryNavigation">
+          <div class="navbar-collapse" id="primaryNavigation" aria-hidden="true">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item">
                 <a class="nav-link" href="#about">About</a>
@@ -90,13 +88,16 @@
     <main id="main-content">
       <!-- Hero Section -->
       <section class="hero section-shell" id="hero">
-        <img
-          class="hero__media"
-          src="assets/images/hero-image.png"
-          width="1536"
-          height="1024"
-          alt="Abstract glass interface forms connected by streams of electric blue light"
-        >
+        <picture>
+          <source media="(max-width: 767px)" srcset="assets/images/mobile-hero.png">
+          <img
+            class="hero__media"
+            src="assets/images/hero-image.png"
+            width="1536"
+            height="1024"
+            alt="Abstract glass interface forms connected by streams of electric blue light"
+          >
+        </picture>
         <div class="hero__veil" aria-hidden="true"></div>
         <div class="hero__grid" aria-hidden="true"></div>
 

@@ -4,7 +4,10 @@
   const header = document.querySelector(".site-header");
   const year = document.querySelector("#current-year");
   const navigation = document.querySelector("#primaryNavigation");
+  const menuButton = document.querySelector(".navbar-toggler");
+  const desktopMenu = window.matchMedia("(min-width: 992px)");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let closeMenuTimer;
 
   if (year) {
     year.textContent = new Date().getFullYear();
@@ -17,41 +20,82 @@
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
-  document.querySelectorAll("#primaryNavigation a").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (window.bootstrap && navigation?.classList.contains("show")) {
-        bootstrap.Collapse.getOrCreateInstance(navigation).hide();
+  const finishMenuClose = () => {
+    if (!navigation || !menuButton) {
+      return;
+    }
+
+    navigation.classList.remove("is-closing");
+    navigation.setAttribute("aria-hidden", "true");
+    document.documentElement.classList.remove("menu-open");
+  };
+
+  const openMenu = () => {
+    if (!navigation || !menuButton || desktopMenu.matches) {
+      return;
+    }
+
+    window.clearTimeout(closeMenuTimer);
+    navigation.classList.remove("is-closing");
+    document.documentElement.classList.add("menu-open");
+    navigation.setAttribute("aria-hidden", "false");
+    menuButton.setAttribute("aria-expanded", "true");
+    menuButton.setAttribute("aria-label", "Close navigation");
+
+    requestAnimationFrame(() => {
+      navigation.classList.add("is-open");
+    });
+  };
+
+  const closeMenu = (immediate = false) => {
+    if (!navigation || !menuButton) {
+      return;
+    }
+
+    window.clearTimeout(closeMenuTimer);
+    navigation.classList.remove("is-open");
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation");
+
+    if (immediate || reduceMotion || desktopMenu.matches) {
+      finishMenuClose();
+      return;
+    }
+
+    navigation.classList.add("is-closing");
+    closeMenuTimer = window.setTimeout(finishMenuClose, 720);
+  };
+
+  if (navigation && menuButton) {
+    menuButton.addEventListener("click", () => {
+      if (navigation.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
       }
     });
-  });
 
-  if (navigation) {
-    navigation.addEventListener("show.bs.collapse", () => {
-      document.documentElement.classList.add("menu-open");
-      navigation.classList.remove("is-closing");
-      requestAnimationFrame(() => navigation.classList.add("is-opening"));
+    navigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
     });
 
-    navigation.addEventListener("shown.bs.collapse", () => {
-      navigation.classList.remove("is-opening");
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+        closeMenu();
+        menuButton.focus();
+      }
     });
 
-    navigation.addEventListener("hide.bs.collapse", () => {
-      navigation.classList.remove("is-opening");
-      navigation.classList.add("is-closing");
-    });
-
-    navigation.addEventListener("hidden.bs.collapse", () => {
-      navigation.classList.remove("is-closing");
-      document.documentElement.classList.remove("menu-open");
-    });
-
-    window.matchMedia("(min-width: 992px)").addEventListener("change", (event) => {
+    desktopMenu.addEventListener("change", (event) => {
       if (event.matches) {
-        navigation.classList.remove("is-opening", "is-closing");
-        document.documentElement.classList.remove("menu-open");
+        closeMenu(true);
+        navigation.setAttribute("aria-hidden", "false");
+      } else {
+        navigation.setAttribute("aria-hidden", "true");
       }
     });
+
+    navigation.setAttribute("aria-hidden", desktopMenu.matches ? "false" : "true");
   }
 
   if (reduceMotion || !window.gsap || !window.ScrollTrigger) {

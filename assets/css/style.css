@@ -588,35 +588,21 @@ p {
   transition: color var(--transition-fast);
 }
 
-.hero__scroll span {
-  position: relative;
+.hero__scroll svg {
   display: block;
   width: 2.25rem;
   height: 3.5rem;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   animation: scroll-arrow 1.8s ease-in-out infinite;
 }
 
-.hero__scroll span::before {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 0.03125rem;
-  height: 100%;
-  background: currentColor;
-  content: "";
-  transform: translateX(-50%);
-}
-
-.hero__scroll span::after {
-  position: absolute;
-  right: 0.08rem;
-  bottom: 0.22rem;
-  width: 1.55rem;
-  height: 1.55rem;
-  border-right: 0.03125rem solid currentColor;
-  border-bottom: 0.03125rem solid currentColor;
-  content: "";
-  transform: rotate(45deg);
+.hero__scroll path {
+  vector-effect: non-scaling-stroke;
 }
 
 .hero__scroll:hover {

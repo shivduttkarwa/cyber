@@ -42,7 +42,7 @@
     .from(".hero__title", { autoAlpha: 0, yPercent: 14 }, "-=0.9")
     .from(".hero__footer, .hero__scroll", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
 
-  gsap.utils.toArray(".section-heading, .process__intro").forEach((heading) => {
+  gsap.utils.toArray(".section-heading, .process__intro, .about__top").forEach((heading) => {
     gsap.from(heading, {
       scrollTrigger: {
         trigger: heading,
@@ -57,6 +57,7 @@
   });
 
   const revealGroups = [
+    [".about", ".about__statement h2, .about__intro, .about__principle"],
     [".service-grid", ".service-card"],
     [".project-grid", ".project-card"],
     [".process-list", ".process-step"],

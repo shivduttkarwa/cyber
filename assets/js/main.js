@@ -34,6 +34,7 @@
 
   const homeHero = document.querySelector(".hero");
   const servicePageHero = document.querySelector(".service-page-hero");
+  const teamHero = document.querySelector(".team-hero");
 
   if (homeHero) {
     const heroTimeline = gsap.timeline({
@@ -52,8 +53,20 @@
     });
 
     serviceHeroTimeline
-      .from(".service-page-hero h1", { yPercent: 10 })
+      .from(".service-page-hero__media", { autoAlpha: 0, scale: 1.06, duration: 1.3 })
+      .from(".service-page-hero h1", { yPercent: 10 }, "-=0.85")
       .from(".service-page-hero__bottom", { yPercent: 25 }, "-=0.6");
+  } else if (teamHero) {
+    const teamHeroTimeline = gsap.timeline({
+      defaults: { duration: 0.9, ease: "power3.out" },
+      onStart: () => document.documentElement.classList.add("motion-ready")
+    });
+
+    teamHeroTimeline
+      .from(".team-hero__media", { autoAlpha: 0, scale: 1.06, duration: 1.3 })
+      .from(".team-hero__content .eyebrow", { yPercent: 40 }, "-=0.85")
+      .from(".team-hero__content h1", { yPercent: 12 }, "-=0.65")
+      .from(".team-hero__content p, .team-hero__scroll", { yPercent: 20 }, "-=0.6");
   } else {
     document.documentElement.classList.add("motion-ready");
   }
@@ -152,6 +165,65 @@
       yPercent: 15,
       duration: 0.8,
       stagger: 0.12,
+      ease: "power3.out"
+    });
+  }
+
+  if (document.querySelector(".team-intro")) {
+    gsap.from(
+      ".team-intro__meta, .team-intro__statement h2, .team-intro__copy p",
+      {
+        scrollTrigger: {
+          trigger: ".team-intro",
+          start: "top 82%",
+          once: true
+        },
+        yPercent: 14,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out"
+      }
+    );
+  }
+
+  if (document.querySelector(".founder__layout")) {
+    gsap.from(".founder__identity, .founder__story > *", {
+      scrollTrigger: {
+        trigger: ".founder",
+        start: "top 80%",
+        once: true
+      },
+      yPercent: 12,
+      duration: 0.82,
+      stagger: 0.12,
+      ease: "power3.out"
+    });
+  }
+
+  if (document.querySelector(".team-disciplines__list")) {
+    gsap.from(".team-disciplines__heading, .team-disciplines__list article", {
+      scrollTrigger: {
+        trigger: ".team-disciplines",
+        start: "top 82%",
+        once: true
+      },
+      yPercent: 12,
+      duration: 0.76,
+      stagger: 0.08,
+      ease: "power3.out"
+    });
+  }
+
+  if (document.querySelector(".team-principles__layout")) {
+    gsap.from(".team-principles__heading, .team-principles__list > div", {
+      scrollTrigger: {
+        trigger: ".team-principles",
+        start: "top 82%",
+        once: true
+      },
+      yPercent: 12,
+      duration: 0.76,
+      stagger: 0.08,
       ease: "power3.out"
     });
   }

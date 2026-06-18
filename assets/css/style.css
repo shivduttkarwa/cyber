@@ -423,9 +423,9 @@ p {
 }
 
 .brand img {
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 6px;
-  padding: 4px 8px;
+  width: auto;
+  height: 3rem;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
 }
 
 .brand__mark {

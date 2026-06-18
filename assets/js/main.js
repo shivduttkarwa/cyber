@@ -2,12 +2,59 @@
   "use strict";
 
   const header = document.querySelector(".site-header");
+  const loader = document.querySelector(".page-loader");
   const year = document.querySelector("#current-year");
   const navigation = document.querySelector("#primaryNavigation");
   const menuButton = document.querySelector(".navbar-toggler");
   const desktopMenu = window.matchMedia("(min-width: 992px)");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let closeMenuTimer;
+  const loaderStartedAt = performance.now();
+  const loaderMinimumDuration = 2200;
+
+  const hideLoader = () => {
+    if (!loader || loader.classList.contains("is-hidden")) {
+      return;
+    }
+
+    loader.classList.add("is-hidden");
+    document.body.classList.remove("is-loading");
+    window.setTimeout(() => loader.remove(), 550);
+  };
+
+  if (loader) {
+    if (reduceMotion) {
+      hideLoader();
+    } else {
+      const completeLoader = () => {
+        if (loader.classList.contains("is-complete")) {
+          return;
+        }
+
+        const elapsed = performance.now() - loaderStartedAt;
+        const remaining = Math.max(0, loaderMinimumDuration - elapsed);
+
+        window.setTimeout(() => {
+          loader.classList.add("is-complete");
+          window.setTimeout(hideLoader, 760);
+        }, remaining);
+      };
+
+      if (document.readyState === "complete") {
+        window.setTimeout(completeLoader, 900);
+      } else {
+        window.addEventListener(
+          "load",
+          () => {
+            window.setTimeout(completeLoader, 520);
+          },
+          { once: true }
+        );
+      }
+
+      window.setTimeout(completeLoader, 2600);
+    }
+  }
 
   if (year) {
     year.textContent = new Date().getFullYear();

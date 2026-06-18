@@ -1250,21 +1250,12 @@ p {
   isolation: isolate;
 }
 
-.contact-card::before {
+.contact-card__border-light {
   position: absolute;
   inset: 0;
   z-index: var(--layer-content);
   padding: var(--line-bold);
-  background: conic-gradient(
-    from var(--contact-border-angle),
-    transparent 0deg 300deg,
-    rgba(199, 255, 55, 0.2) 320deg,
-    var(--color-neon) 342deg,
-    transparent 360deg
-  );
   border-radius: inherit;
-  content: "";
-  filter: drop-shadow(0 0 0.65rem var(--color-neon-glow));
   -webkit-mask:
     linear-gradient(var(--color-black) 0 0) content-box,
     linear-gradient(var(--color-black) 0 0);
@@ -1273,19 +1264,32 @@ p {
     linear-gradient(var(--color-black) 0 0) content-box,
     linear-gradient(var(--color-black) 0 0);
   mask-composite: exclude;
+  overflow: hidden;
   pointer-events: none;
-  animation: contact-border-run 4.5s linear infinite;
 }
 
-@property --contact-border-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+.contact-card__border-light::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 165%;
+  aspect-ratio: 1;
+  background: conic-gradient(
+    transparent 0deg 322deg,
+    rgba(199, 255, 55, 0.16) 334deg,
+    var(--color-neon) 348deg,
+    transparent 360deg
+  );
+  content: "";
+  filter: drop-shadow(0 0 0.5rem var(--color-neon-glow));
+  transform: translate(-50%, -50%) rotate(0);
+  will-change: transform;
+  animation: contact-border-run 5.5s linear infinite;
 }
 
 @keyframes contact-border-run {
   to {
-    --contact-border-angle: 360deg;
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 

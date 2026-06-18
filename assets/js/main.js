@@ -228,18 +228,4 @@
     });
   }
 
-  if (document.querySelector(".contact-card")) {
-    gsap.from(".contact-card", {
-      scrollTrigger: {
-        trigger: ".contact-card",
-        start: "top 84%",
-        once: true
-      },
-      autoAlpha: 0,
-      yPercent: 8,
-      scale: 0.985,
-      duration: 0.9,
-      ease: "power3.out"
-    });
-  }
 })();

@@ -28,7 +28,7 @@
   <body class="services-page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
+    <header class="site-header" data-hero-item="fade-down" data-hero-at="0">
       <nav class="navbar navbar-expand-lg" aria-label="Primary navigation">
         <div class="container-fluid page-gutter">
           <a class="navbar-brand brand" href="index.html#hero" aria-label="Cyber Shades home">
@@ -78,9 +78,11 @@
     </header>
 
     <main id="main-content">
-      <section class="service-page-hero">
+      <section class="service-page-hero" data-anim-hero>
         <img
           class="service-page-hero__media"
+          data-hero-item="media"
+          data-hero-at="0"
           src="assets/images/services-hero.webp"
           width="1659"
           height="948"
@@ -92,13 +94,20 @@
 
         <div class="container-fluid page-gutter service-page-hero__inner">
           <div class="service-page-hero__title">
-            <h1>
+            <h1
+              data-hero-item="fade-up"
+              data-hero-at="0.14"
+            >
               One studio.
               <span>The whole digital product.</span>
             </h1>
           </div>
 
-          <div class="service-page-hero__bottom">
+          <div
+            class="service-page-hero__bottom"
+            data-hero-item="fade-up"
+            data-hero-at="0.34"
+          >
             <p>
               Strategy, design, technology, and integration—working together
               from the first decision to the final detail.
@@ -113,12 +122,20 @@
 
       <section class="service-index" id="service-index">
         <div class="container-fluid page-gutter">
-          <div class="service-index__heading">
+          <div
+            class="service-index__heading"
+            data-anim-group="fade-up"
+          >
             <div class="eyebrow">Where we can help</div>
             <p>Start with one discipline or connect them into one continuous engagement.</p>
           </div>
 
-          <nav class="service-index__nav" aria-label="Services on this page">
+          <nav
+            class="service-index__nav"
+            aria-label="Services on this page"
+            data-anim-group="fade-up"
+            data-anim-stagger="0.07"
+          >
             <a href="#website-design">
               <span>01</span>
               <strong>Website Design</strong>
@@ -154,9 +171,9 @@
       </section>
 
       <section class="service-chapter" id="website-design">
-        <span class="service-chapter__number" aria-hidden="true">01</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">01</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/design.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Design</span>
@@ -164,7 +181,7 @@
             <h2>Website<br>Design</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We create digital identities and interfaces that make your value
               immediately clear—and your brand difficult to forget.
@@ -190,9 +207,9 @@
       </section>
 
       <section class="service-chapter service-chapter--soft" id="website-development">
-        <span class="service-chapter__number" aria-hidden="true">02</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">02</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/development.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Engineering</span>
@@ -200,7 +217,7 @@
             <h2>Website<br>Development</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We turn approved ideas into fast, accessible, production-ready
               websites with clean systems beneath every polished interaction.
@@ -226,9 +243,9 @@
       </section>
 
       <section class="service-chapter" id="cms-integration">
-        <span class="service-chapter__number" aria-hidden="true">03</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">03</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/cms.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Content systems</span>
@@ -236,7 +253,7 @@
             <h2>CMS<br>Integration</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We design publishing workflows around your real team, so content
               remains flexible without letting the experience fall apart.
@@ -262,9 +279,9 @@
       </section>
 
       <section class="service-chapter service-chapter--soft" id="headless-cms">
-        <span class="service-chapter__number" aria-hidden="true">04</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">04</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/cms.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Architecture</span>
@@ -272,7 +289,7 @@
             <h2>Headless<br>CMS</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We build decoupled content platforms for organizations that need
               one source of truth across websites, apps, and future channels.
@@ -298,9 +315,9 @@
       </section>
 
       <section class="service-chapter" id="app-development">
-        <span class="service-chapter__number" aria-hidden="true">05</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">05</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/app.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Digital products</span>
@@ -308,7 +325,7 @@
             <h2>App<br>Development</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We design and build focused digital tools that make complex work
               feel obvious, efficient, and natural on every screen.
@@ -334,9 +351,9 @@
       </section>
 
       <section class="service-chapter service-chapter--soft" id="api-integrations">
-        <span class="service-chapter__number" aria-hidden="true">06</span>
+        <span class="service-chapter__number" aria-hidden="true" data-anim="fade">06</span>
         <div class="container-fluid page-gutter service-chapter__inner">
-          <header class="service-chapter__header">
+          <header class="service-chapter__header" data-anim-group="fade-up">
             <div class="service-chapter__label">
               <img src="assets/icons/api.svg" width="32" height="32" alt="" aria-hidden="true">
               <span>Connected systems</span>
@@ -344,7 +361,7 @@
             <h2>API<br>Integrations</h2>
           </header>
 
-          <div class="service-chapter__body">
+          <div class="service-chapter__body" data-anim="fade-up">
             <p class="service-chapter__lead">
               We connect the platforms and data behind your business with
               reliable flows that remove friction instead of creating more.
@@ -371,7 +388,10 @@
 
       <section class="service-bridge">
         <div class="container-fluid page-gutter">
-          <div class="service-bridge__inner">
+          <div
+            class="service-bridge__inner"
+            data-anim-group="fade-up"
+          >
             <span>One continuous team</span>
             <h2>Good products do not separate design from technology.</h2>
             <p>
@@ -388,7 +408,10 @@
             <div class="contact-card__grid" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--one" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--two" aria-hidden="true"></div>
-            <div class="row align-items-end g-5 position-relative">
+            <div
+              class="row align-items-end g-5 position-relative"
+              data-anim-group="fade-up"
+            >
               <div class="col-lg-8">
                 <div class="eyebrow">Have a project in mind?</div>
                 <h2>
@@ -419,7 +442,10 @@
           </div>
 
           <footer class="site-footer">
-            <div class="row align-items-end g-4">
+            <div
+              class="row align-items-end g-4"
+              data-anim-group="fade-up"
+            >
               <div class="col-md-5">
                 <a class="brand brand--footer" href="index.html#hero" aria-label="Cyber Shades home">
                   <img src="assets/icons/cybershades-logo.png" alt="Cyber Shades" height="40">

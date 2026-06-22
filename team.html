@@ -28,7 +28,7 @@
   <body class="team-page">
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
+    <header class="site-header" data-hero-item="fade-down" data-hero-at="0">
       <nav class="navbar navbar-expand-lg" aria-label="Primary navigation">
         <div class="container-fluid page-gutter">
           <a class="navbar-brand brand" href="index.html#hero" aria-label="Cyber Shades home">
@@ -78,9 +78,11 @@
     </header>
 
     <main id="main-content">
-      <section class="team-hero">
+      <section class="team-hero" data-anim-hero>
         <img
           class="team-hero__media"
+          data-hero-item="media"
+          data-hero-at="0"
           src="assets/images/team-hero.webp"
           width="1779"
           height="884"
@@ -92,17 +94,31 @@
 
         <div class="container-fluid page-gutter team-hero__inner">
           <div class="team-hero__content">
-            <div class="eyebrow">The people behind the product</div>
-            <h1>
+            <div
+              class="eyebrow"
+              data-hero-item="fade-up"
+              data-hero-at="0.1"
+            >
+              The people behind the product
+            </div>
+            <h1
+              data-hero-item="fade-up"
+              data-hero-at="0.22"
+            >
               Small team.
               <span>Serious range.</span>
             </h1>
-            <p>
+            <p data-hero-item="fade-up" data-hero-at="0.4">
               Designers, engineers, and systems thinkers working closely enough
               to keep every decision connected.
             </p>
           </div>
-          <a class="team-hero__scroll" href="#studio">
+          <a
+            class="team-hero__scroll"
+            href="#studio"
+            data-hero-item="fade"
+            data-hero-at="0.56"
+          >
             Meet the studio
             <span aria-hidden="true">↓</span>
           </a>
@@ -111,17 +127,20 @@
 
       <section class="team-intro section-shell" id="studio">
         <div class="container-fluid page-gutter">
-          <div class="team-intro__meta">
+          <div class="team-intro__meta" data-anim="fade-up">
             <div class="eyebrow">Independent by design</div>
             <span>Jaipur / India</span>
           </div>
           <div class="team-intro__statement">
-            <h2>
+            <h2 data-anim="fade-up" data-anim-duration="0.88">
               Close collaboration is not a process step.
               <span>It is how the studio is built.</span>
             </h2>
           </div>
-          <div class="team-intro__copy">
+          <div
+            class="team-intro__copy"
+            data-anim-group="fade-up"
+          >
             <p>
               Cyber Shades stays intentionally focused. The people shaping the
               idea remain close to the people designing and building it, so
@@ -139,14 +158,17 @@
       <section class="founder section-shell">
         <div class="container-fluid page-gutter">
           <div class="founder__layout">
-            <div class="founder__identity">
+            <div class="founder__identity" data-anim="from-left">
               <span class="founder__monogram" aria-hidden="true">KC</span>
               <div>
                 <span>Founder</span>
                 <h2>Kailash<br>Choudhary</h2>
               </div>
             </div>
-            <div class="founder__story">
+            <div
+              class="founder__story"
+              data-anim-group="fade-up"
+            >
               <p class="founder__lead">
                 Kailash leads Cyber Shades with one belief: ambitious digital
                 work gets better when design judgment and technical thinking
@@ -167,12 +189,16 @@
 
       <section class="team-disciplines section-shell">
         <div class="container-fluid page-gutter">
-          <div class="team-disciplines__heading">
+          <div class="team-disciplines__heading" data-anim="fade-up">
             <div class="eyebrow">One multidisciplinary studio</div>
             <h2>Different disciplines.<br>One shared standard.</h2>
           </div>
 
-          <div class="team-disciplines__list">
+          <div
+            class="team-disciplines__list"
+            data-anim-group="fade-up"
+            data-anim-stagger="0.08"
+          >
             <article>
               <span>01</span>
               <h3>Product &amp; Strategy</h3>
@@ -200,11 +226,15 @@
       <section class="team-principles section-shell">
         <div class="container-fluid page-gutter">
           <div class="team-principles__layout">
-            <div class="team-principles__heading">
+            <div class="team-principles__heading" data-anim="fade-up">
               <div class="eyebrow">How we show up</div>
               <h2>Good work needs a good way of working.</h2>
             </div>
-            <div class="team-principles__list">
+            <div
+              class="team-principles__list"
+              data-anim-group="fade-up"
+              data-anim-stagger="0.08"
+            >
               <div>
                 <span>01</span>
                 <h3>Stay close</h3>
@@ -236,7 +266,10 @@
             <div class="contact-card__grid" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--one" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--two" aria-hidden="true"></div>
-            <div class="row align-items-end g-5 position-relative">
+            <div
+              class="row align-items-end g-5 position-relative"
+              data-anim-group="fade-up"
+            >
               <div class="col-lg-8">
                 <div class="eyebrow">Work directly with the studio</div>
                 <h2>
@@ -267,7 +300,10 @@
           </div>
 
           <footer class="site-footer">
-            <div class="row align-items-end g-4">
+            <div
+              class="row align-items-end g-4"
+              data-anim-group="fade-up"
+            >
               <div class="col-md-5">
                 <a class="brand brand--footer" href="index.html#hero" aria-label="Cyber Shades home">
                   <img src="assets/icons/new-logo.png" alt="Cyber Shades" height="160">

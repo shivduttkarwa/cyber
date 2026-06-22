@@ -42,7 +42,7 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Header -->
-    <header class="site-header">
+    <header class="site-header" data-hero-item="fade-down" data-hero-at="0.08">
       <nav class="navbar navbar-expand-lg" aria-label="Primary navigation">
         <div class="container-fluid page-gutter">
           <a class="navbar-brand brand" href="#hero" aria-label="Cyber Shades home">
@@ -101,11 +101,13 @@
 
     <main id="main-content">
       <!-- Hero Section -->
-      <section class="hero section-shell" id="hero">
+      <section class="hero section-shell" id="hero" data-anim-hero>
         <picture>
           <source media="(max-width: 767px)" srcset="assets/images/mobile-hero.png">
           <img
             class="hero__media"
+            data-hero-item="media"
+            data-hero-at="0"
             src="assets/images/hero-image.png"
             width="1536"
             height="1024"
@@ -117,18 +119,28 @@
 
         <div class="container-fluid page-gutter hero__layout">
           <div class="hero__content">
-            <h1 class="hero__title">
+            <h1
+              class="hero__title"
+              data-hero-item="fade-up"
+              data-hero-at="0.14"
+            >
               Digital products
               <span>with a pulse.</span>
             </h1>
-            <div class="hero__footer">
+            <div class="hero__footer" data-hero-item="fade-up" data-hero-at="0.36">
               <p class="hero__copy">
                 We design and engineer sharp websites, apps, and connected
                 platforms for brands ready to move.
               </p>
             </div>
           </div>
-          <a class="hero__scroll" href="#about" aria-label="Scroll down to about us">
+          <a
+            class="hero__scroll"
+            href="#about"
+            aria-label="Scroll down to about us"
+            data-hero-item="fade"
+            data-hero-at="0.52"
+          >
             <svg viewBox="0 0 40 64" aria-hidden="true">
               <path d="M20 1V55M4 39L20 55L36 39"></path>
             </svg>
@@ -140,26 +152,30 @@
       <section class="about section-shell" id="about">
         <div class="about__glow" aria-hidden="true"></div>
         <div class="container-fluid page-gutter">
-          <div class="about__top">
+          <div class="about__top" data-anim="fade-up">
             <div class="eyebrow">About Cyber Shades</div>
             <p>Independent digital studio <span>/</span> Jaipur, India</p>
           </div>
 
           <div class="about__statement">
-            <h2>
+            <h2 data-anim="fade-up" data-anim-duration="0.88">
               We turn complex ideas into
               <span>clear, magnetic digital experiences.</span>
             </h2>
           </div>
 
           <div class="about__lower">
-            <p class="about__intro">
+            <p class="about__intro" data-anim="fade-up">
               We are a design-led team pairing sharp creative thinking with
               serious engineering. Small enough to care deeply, experienced
               enough to build products that hold up in the real world.
             </p>
 
-            <div class="about__principles" aria-label="Our approach">
+            <div
+              class="about__principles"
+              aria-label="Our approach"
+              data-anim-group="fade-up"
+            >
               <div class="about__principle">
                 <span>01</span>
                 <p>Strategy before screens</p>
@@ -180,7 +196,10 @@
       <!-- Services Section -->
       <section class="services section-shell" id="services">
         <div class="container-fluid page-gutter">
-          <div class="section-heading row align-items-end g-4">
+          <div
+            class="section-heading row align-items-end g-4"
+            data-anim-group="fade-up"
+          >
             <div class="col-lg-7">
               <div class="eyebrow">What we do</div>
               <h2>One studio. Every layer of your digital product.</h2>
@@ -193,7 +212,11 @@
             </div>
           </div>
 
-          <div class="row g-3 g-lg-4 service-grid">
+          <div
+            class="row g-3 g-lg-4 service-grid"
+            data-anim-group="fade-up"
+            data-anim-stagger="0.08"
+          >
             <div class="col-md-6 col-xl-4">
               <article class="service-card">
                 <div class="service-card__icon">
@@ -302,7 +325,10 @@
       <!-- Work Section -->
       <section class="work section-shell" id="work">
         <div class="container-fluid page-gutter">
-          <div class="section-heading section-heading--split">
+          <div
+            class="section-heading section-heading--split"
+            data-anim-group="fade-up"
+          >
             <div>
               <div class="eyebrow">Selected work</div>
               <h2>Made to be noticed.<br>Built to be used.</h2>
@@ -313,7 +339,11 @@
             </p>
           </div>
 
-          <div class="row g-3 g-lg-4 project-grid">
+          <div
+            class="row g-3 g-lg-4 project-grid"
+            data-anim-group="fade-up"
+            data-anim-stagger="0.08"
+          >
             <div class="col-lg-7">
               <article class="project-card project-card--feature">
                 <a class="project-card__image" href="#contact" aria-label="Enquire about Bunny Bites project">
@@ -494,7 +524,7 @@
         <div class="container-fluid page-gutter position-relative">
           <div class="row g-5 align-items-start">
             <div class="col-lg-5">
-              <div class="process__intro">
+              <div class="process__intro" data-anim="from-left">
                 <div class="eyebrow">How we work</div>
                 <h2>A clear process for complex digital work.</h2>
                 <p>
@@ -511,7 +541,11 @@
             </div>
 
             <div class="col-lg-7">
-              <ol class="process-list">
+              <ol
+                class="process-list"
+                data-anim-group="fade-up"
+                data-anim-stagger="0.09"
+              >
                 <li class="process-step">
                   <span class="process-step__number">01</span>
                   <div class="process-step__content">
@@ -549,11 +583,15 @@
           </div>
 
           <div class="why-panel">
-            <div class="why-panel__heading">
+            <div class="why-panel__heading" data-anim="from-left">
               <span>Why Cyber Shades</span>
               <strong>Small team focus.<br>Production-level thinking.</strong>
             </div>
-            <ul class="why-panel__list">
+            <ul
+              class="why-panel__list"
+              data-anim-group="fade-up"
+              data-anim-stagger="0.07"
+            >
               <li><span aria-hidden="true">✓</span> Modern UI quality</li>
               <li><span aria-hidden="true">✓</span> Scalable code</li>
               <li><span aria-hidden="true">✓</span> CMS-first thinking</li>
@@ -572,7 +610,10 @@
             <div class="contact-card__grid" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--one" aria-hidden="true"></div>
             <div class="contact-card__orb contact-card__orb--two" aria-hidden="true"></div>
-            <div class="row align-items-end g-5 position-relative">
+            <div
+              class="row align-items-end g-5 position-relative"
+              data-anim-group="fade-up"
+            >
               <div class="col-lg-8">
                 <div class="eyebrow">Let’s make something exceptional</div>
                 <h2>
@@ -610,7 +651,10 @@
 
           <!-- Footer -->
           <footer class="site-footer">
-            <div class="row align-items-end g-4">
+            <div
+              class="row align-items-end g-4"
+              data-anim-group="fade-up"
+            >
               <div class="col-md-5">
                 <a class="brand brand--footer" href="#hero" aria-label="Cyber Shades home">
                   <img src="assets/icons/cybershades-logo.png" alt="Cyber Shades" height="40">

@@ -11,14 +11,36 @@
   let closeMenuTimer;
   const loaderStartedAt = performance.now();
   const loaderMinimumDuration = 2200;
+  let loaderHasExited = !loader;
+  const loaderExitCallbacks = [];
+
+  const signalLoaderExit = () => {
+    if (loaderHasExited) {
+      return;
+    }
+
+    loaderHasExited = true;
+    loaderExitCallbacks.splice(0).forEach((callback) => callback());
+  };
+
+  const whenLoaderExits = (callback) => {
+    if (loaderHasExited) {
+      callback();
+      return;
+    }
+
+    loaderExitCallbacks.push(callback);
+  };
 
   const hideLoader = () => {
     if (!loader || loader.classList.contains("is-hidden")) {
+      signalLoaderExit();
       return;
     }
 
     loader.classList.add("is-hidden");
     document.body.classList.remove("is-loading");
+    signalLoaderExit();
     window.setTimeout(() => loader.remove(), 550);
   };
 
@@ -36,6 +58,7 @@
 
         window.setTimeout(() => {
           loader.classList.add("is-complete");
+          signalLoaderExit();
           window.setTimeout(hideLoader, 760);
         }, remaining);
       };
@@ -152,200 +175,225 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const homeHero = document.querySelector(".hero");
-  const servicePageHero = document.querySelector(".service-page-hero");
-  const teamHero = document.querySelector(".team-hero");
+  /*
+   * Semantic animation API:
+   * data-anim="fade|fade-up|fade-down|from-left|from-right|scale|clip"
+   * data-anim-group="fade-up" applies one animation type to direct children.
+   * data-hero-item="media|fade|fade-up|fade-down|from-left|from-right|scale"
+   */
+  const CSAnimations = {
+    defaults: {
+      duration: 0.78,
+      ease: "power3.out",
+      batchStagger: 0.09,
+      wordStagger: 0.045
+    },
 
-  if (homeHero) {
-    const heroTimeline = gsap.timeline({
-      defaults: { duration: 0.9, ease: "power3.out" },
-      onStart: () => document.documentElement.classList.add("motion-ready")
-    });
+    number(value, fallback) {
+      const parsed = Number.parseFloat(value);
+      return Number.isFinite(parsed) ? parsed : fallback;
+    },
 
-    heroTimeline
-      .from(".hero__media", { autoAlpha: 0, scale: 1.08, duration: 1.35 })
-      .from(".hero__title", { autoAlpha: 0, yPercent: 14 }, "-=0.9")
-      .from(".hero__footer, .hero__scroll", { autoAlpha: 0, yPercent: 25 }, "-=0.62");
-  } else if (servicePageHero) {
-    const serviceHeroTimeline = gsap.timeline({
-      defaults: { duration: 0.9, ease: "power3.out" },
-      onStart: () => document.documentElement.classList.add("motion-ready")
-    });
+    expandGroups() {
+      document.querySelectorAll("[data-anim-group]").forEach((group) => {
+        const selector = group.dataset.animSelector || ":scope > *";
+        const type = group.dataset.animGroup || "fade-up";
+        const duration = group.dataset.animDuration;
+        const stagger = group.dataset.animStagger;
 
-    serviceHeroTimeline
-      .from(".service-page-hero__media", { autoAlpha: 0, scale: 1.06, duration: 1.3 })
-      .from(".service-page-hero h1", { yPercent: 10 }, "-=0.85")
-      .from(".service-page-hero__bottom", { yPercent: 25 }, "-=0.6");
-  } else if (teamHero) {
-    const teamHeroTimeline = gsap.timeline({
-      defaults: { duration: 0.9, ease: "power3.out" },
-      onStart: () => document.documentElement.classList.add("motion-ready")
-    });
+        group.querySelectorAll(selector).forEach((item) => {
+          item.dataset.anim ||= type;
+          if (duration && !item.dataset.animDuration) {
+            item.dataset.animDuration = duration;
+          }
+          if (stagger && !item.dataset.animBatchStagger) {
+            item.dataset.animBatchStagger = stagger;
+          }
+        });
+      });
+    },
 
-    teamHeroTimeline
-      .from(".team-hero__media", { autoAlpha: 0, scale: 1.06, duration: 1.3 })
-      .from(".team-hero__content .eyebrow", { yPercent: 40 }, "-=0.85")
-      .from(".team-hero__content h1", { yPercent: 12 }, "-=0.65")
-      .from(".team-hero__content p, .team-hero__scroll", { yPercent: 20 }, "-=0.6");
-  } else {
-    document.documentElement.classList.add("motion-ready");
-  }
+    prepare(item) {
+      const type = item.dataset.anim || "fade-up";
 
-  gsap.utils.toArray(".section-heading, .process__intro, .about__top").forEach((heading) => {
-    gsap.from(heading, {
-      scrollTrigger: {
-        trigger: heading,
-        start: "top 84%",
-        once: true
-      },
-      autoAlpha: 0,
-      yPercent: 20,
-      duration: 0.8,
-      ease: "power3.out"
-    });
-  });
+      const states = {
+        fade: { autoAlpha: 0 },
+        "fade-up": { autoAlpha: 0, y: 30 },
+        "fade-down": { autoAlpha: 0, y: -24 },
+        "from-left": { autoAlpha: 0, x: -38 },
+        "from-right": { autoAlpha: 0, x: 38 },
+        scale: { autoAlpha: 0, scale: 0.96 },
+        clip: { clipPath: "inset(0 0 100% 0)" }
+      };
 
-  const revealGroups = [
-    [".about", ".about__statement h2, .about__intro, .about__principle"],
-    [".project-grid", ".project-card"],
-    [".process-list", ".process-step"],
-    [".why-panel", ".why-panel__heading, .why-panel__list li"]
-  ];
+      gsap.set(item, {
+        ...(states[type] || states["fade-up"]),
+        willChange: type === "clip" ? "clip-path" : "transform, opacity"
+      });
+    },
 
-  if (document.querySelector(".service-grid")) {
-    gsap.from(".service-card", {
-      scrollTrigger: {
-        trigger: ".service-grid",
-        start: "top 82%",
-        once: true
-      },
-      autoAlpha: 0,
-      duration: 0.72,
-      ease: "power3.out"
-    });
-  }
+    animate(item, batchIndex = 0) {
+      if (item.dataset.animComplete === "true") {
+        return;
+      }
 
-  revealGroups.forEach(([trigger, targets]) => {
-    if (!document.querySelector(trigger)) {
-      return;
+      const type = item.dataset.anim || "fade-up";
+      const duration = this.number(item.dataset.animDuration, this.defaults.duration);
+      const stagger = this.number(
+        item.dataset.animBatchStagger,
+        this.defaults.batchStagger
+      );
+      const delay = this.number(item.dataset.animDelay, 0) + batchIndex * stagger;
+      const ease = item.dataset.animEase || this.defaults.ease;
+
+      item.classList.add("anim-start");
+
+      const finalState =
+        type === "clip"
+          ? { clipPath: "inset(0 0 0% 0)" }
+          : { autoAlpha: 1, x: 0, y: 0, scale: 1 };
+
+      gsap.to(item, {
+        ...finalState,
+        duration,
+        delay,
+        ease,
+        onComplete: () => {
+          gsap.set(item, {
+            clearProps: "transform,opacity,visibility,clipPath,willChange"
+          });
+          item.dataset.animComplete = "true";
+          item.classList.add("anim-complete");
+        }
+      });
+    },
+
+    initBatch() {
+      this.expandGroups();
+
+      const items = [
+        ...document.querySelectorAll("[data-anim]:not([data-hero-item])")
+      ];
+
+      if (!items.length) {
+        return;
+      }
+
+      items.forEach((item) => this.prepare(item));
+
+      ScrollTrigger.batch(items, {
+        start: "top 88%",
+        once: true,
+        interval: 0.12,
+        batchMax: 8,
+        onEnter: (batch) => {
+          batch.forEach((item, index) => this.animate(item, index));
+        }
+      });
+    },
+
+    heroState(type) {
+      const states = {
+        media: { autoAlpha: 0, scale: 1.08 },
+        fade: { autoAlpha: 0 },
+        "fade-up": { autoAlpha: 0, y: 28 },
+        "fade-down": { autoAlpha: 0, y: -18 },
+        "from-left": { autoAlpha: 0, x: -32 },
+        "from-right": { autoAlpha: 0, x: 32 },
+        scale: { autoAlpha: 0, scale: 0.96 }
+      };
+
+      return states[type] || states["fade-up"];
+    },
+
+    initHero() {
+      const hero = document.querySelector("[data-anim-hero]");
+      const items = [...document.querySelectorAll("[data-hero-item]")];
+
+      if (!hero || !items.length) {
+        document.documentElement.classList.add("motion-ready");
+        return;
+      }
+
+      const timeline = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out" },
+        onStart: () => {
+          document.documentElement.classList.add("motion-ready");
+          hero.classList.add("anim-start");
+        },
+        onComplete: () => hero.classList.add("anim-complete")
+      });
+
+      items.forEach((item, index) => {
+        const type = item.dataset.heroItem || "fade-up";
+        const at = this.number(item.dataset.heroAt, index * 0.16);
+        const duration = this.number(
+          item.dataset.heroDuration,
+          type === "media" ? 1.35 : 0.82
+        );
+        const ease = item.dataset.heroEase || "power3.out";
+
+        gsap.set(item, {
+          ...this.heroState(type),
+          willChange: "transform, opacity"
+        });
+
+        timeline.to(
+          item,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration,
+            ease,
+            onComplete: () => {
+              gsap.set(item, {
+                clearProps: "transform,opacity,visibility,willChange"
+              });
+            }
+          },
+          at
+        );
+      });
+
+      const play = () => timeline.play(0);
+
+      whenLoaderExits(play);
+    },
+
+    initParallax() {
+      document.querySelectorAll("[data-anim-parallax]").forEach((item) => {
+        const distance = this.number(item.dataset.animParallax, 7);
+        const trigger = item.closest("section") || item;
+
+        gsap.fromTo(
+          item,
+          { yPercent: -distance },
+          {
+            yPercent: distance,
+            ease: "none",
+            scrollTrigger: {
+              trigger,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1
+            }
+          }
+        );
+      });
+    },
+
+    init() {
+      this.initHero();
+      this.initBatch();
+      this.initParallax();
+      ScrollTrigger.refresh();
     }
+  };
 
-    gsap.from(targets, {
-      scrollTrigger: {
-        trigger,
-        start: "top 82%",
-        once: true
-      },
-      autoAlpha: 0,
-      yPercent: 12,
-      duration: 0.72,
-      stagger: 0.1,
-      ease: "power3.out"
-    });
-  });
-
-  if (document.querySelector(".service-index")) {
-    gsap.from(".service-index__heading > *, .service-index__nav a", {
-      scrollTrigger: {
-        trigger: ".service-index",
-        start: "top 82%",
-        once: true
-      },
-      yPercent: 16,
-      duration: 0.72,
-      stagger: 0.08,
-      ease: "power3.out"
-    });
-  }
-
-  gsap.utils.toArray(".service-chapter").forEach((chapter) => {
-    gsap.from(
-      chapter.querySelectorAll(".service-chapter__label, .service-chapter h2, .service-chapter__body"),
-      {
-        scrollTrigger: {
-          trigger: chapter,
-          start: "top 78%",
-          once: true
-        },
-        yPercent: 10,
-        duration: 0.82,
-        stagger: 0.1,
-        ease: "power3.out"
-      }
-    );
-  });
-
-  if (document.querySelector(".service-bridge__inner")) {
-    gsap.from(".service-bridge__inner > *", {
-      scrollTrigger: {
-        trigger: ".service-bridge",
-        start: "top 80%",
-        once: true
-      },
-      yPercent: 15,
-      duration: 0.8,
-      stagger: 0.12,
-      ease: "power3.out"
-    });
-  }
-
-  if (document.querySelector(".team-intro")) {
-    gsap.from(
-      ".team-intro__meta, .team-intro__statement h2, .team-intro__copy p",
-      {
-        scrollTrigger: {
-          trigger: ".team-intro",
-          start: "top 82%",
-          once: true
-        },
-        yPercent: 14,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out"
-      }
-    );
-  }
-
-  if (document.querySelector(".founder__layout")) {
-    gsap.from(".founder__identity, .founder__story > *", {
-      scrollTrigger: {
-        trigger: ".founder",
-        start: "top 80%",
-        once: true
-      },
-      yPercent: 12,
-      duration: 0.82,
-      stagger: 0.12,
-      ease: "power3.out"
-    });
-  }
-
-  if (document.querySelector(".team-disciplines__list")) {
-    gsap.from(".team-disciplines__heading, .team-disciplines__list article", {
-      scrollTrigger: {
-        trigger: ".team-disciplines",
-        start: "top 82%",
-        once: true
-      },
-      yPercent: 12,
-      duration: 0.76,
-      stagger: 0.08,
-      ease: "power3.out"
-    });
-  }
-
-  if (document.querySelector(".team-principles__layout")) {
-    gsap.from(".team-principles__heading, .team-principles__list > div", {
-      scrollTrigger: {
-        trigger: ".team-principles",
-        start: "top 82%",
-        once: true
-      },
-      yPercent: 12,
-      duration: 0.76,
-      stagger: 0.08,
-      ease: "power3.out"
-    });
-  }
+  window.CSAnimations = CSAnimations;
+  CSAnimations.init();
 
 })();

@@ -1915,7 +1915,8 @@ html.menu-open .navbar-toggler {
   position: relative;
 }
 
-.contact-details {
+.contact-details,
+.contact-facts {
   display: grid;
   gap: var(--space-075);
   margin: 0;
@@ -1925,7 +1926,8 @@ html.menu-open .navbar-toggler {
   font-style: normal;
 }
 
-.contact-details span {
+.contact-details span,
+.contact-facts dt {
   margin-top: var(--space-1);
   color: var(--color-neon);
   font-family: var(--font-mono);
@@ -1934,11 +1936,14 @@ html.menu-open .navbar-toggler {
   text-transform: uppercase;
 }
 
-.contact-details span:first-child {
+.contact-details span:first-child,
+.contact-facts dt:first-child {
   margin-top: 0;
 }
 
-.contact-details strong {
+.contact-details strong,
+.contact-facts dd {
+  margin: 0;
   color: var(--color-text-soft);
   font-size: var(--font-sm);
   font-weight: 500;
@@ -2060,7 +2065,8 @@ html.menu-open .navbar-toggler {
     content: "";
   }
 
-  .contact-details {
+  .contact-details,
+  .contact-facts {
     padding-top: 0;
     border-top: 0;
   }
